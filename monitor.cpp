@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <string>
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
 constexpr float MAX_TEMP = 102.0;
@@ -25,18 +26,21 @@ void displayAlert(const std::string& message) {
 int vitalsOk(const Vitals& vitals) {
   int vitalStatus = 1;
 
-    if (vitals.temperature > MAX_TEMP || vitals.temperature < MIN_TEMP) {
-        displayAlert("Temperature is critical!");
-        vitalStatus = 0;
-    }
-    if (vitals.pulseRate < MIN_PULSE || vitals.pulseRate > MAX_PULSE) {
-        displayAlert("Pulse Rate is out of range!");
-        vitalStatus = 0;
-    }
-    if (vitals.spo2 < MIN_SPO2) {
-        displayAlert("Oxygen Saturation is out of range!");
-        vitalStatus = 0;
-    }
-    return vitalStatus;
+  if (vitals.temperature > MAX_TEMP || vitals.temperature < MIN_TEMP) {
+    displayAlert("Temperature is critical!");
+    vitalStatus = 0;
+  }
+
+  if (vitals.pulseRate < MIN_PULSE || vitals.pulseRate > MAX_PULSE) {
+    displayAlert("Pulse Rate is out of range!");
+    vitalStatus = 0;
+  }
+
+  if (vitals.spo2 < MIN_SPO2) {
+    displayAlert("Oxygen Saturation is out of range!");
+    vitalStatus = 0;
+  }
+
+  return vitalStatus;
 }
 
