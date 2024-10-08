@@ -23,24 +23,36 @@ void displayAlert(const std::string& message) {
     cout << "\n";
 }
 
-int vitalsOk(const Vitals& vitals) {
-  int vitalStatus = 1;
-
-  if (vitals.temperature > MAX_TEMP || vitals.temperature < MIN_TEMP) {
-    displayAlert("Temperature is critical!");
-    vitalStatus = 0;
-  }
-
-  if (vitals.pulseRate < MIN_PULSE || vitals.pulseRate > MAX_PULSE) {
-    displayAlert("Pulse Rate is out of range!");
-    vitalStatus = 0;
-  }
-
-  if (vitals.spo2 < MIN_SPO2) {
-    displayAlert("Oxygen Saturation is out of range!");
-    vitalStatus = 0;
-  }
-
-  return vitalStatus;
+bool isTemperatureCritical(const Vitals& vitals) {
+    return vitals.temperature > MAX_TEMP || vitals.temperature < MIN_TEMP;
 }
+
+bool isPulseRateCritical(const Vitals& vitals) {
+    return vitals.pulseRate < MIN_PULSE || vitals.pulseRate > MAX_PULSE;
+}
+
+bool isSpo2Critical(const Vitals& vitals) {
+    return vitals.spo2 < MIN_SPO2;
+}
+
+int vitalsOk(const Vitals& vitals) {
+    if (isTemperatureCritical(vitals)) {
+        displayAlert("Temperature is critical!");
+        return 0;
+    }
+
+    if (isPulseRateCritical(vitals)) {
+        displayAlert("Pulse Rate is out of range!");
+        return 0;
+    }
+
+    if (isSpo2Critical(vitals)) {
+        displayAlert("Oxygen Saturation is out of range!");
+        return 0;
+    }
+
+    return 1;  // All vitals are fine
+}
+
+
 
