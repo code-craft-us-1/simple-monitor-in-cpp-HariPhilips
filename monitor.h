@@ -1,3 +1,9 @@
 #pragma once
 
-int vitalsOk(float temperature, float pulseRate, float spo2);
+struct Vitals {
+    float temperature;
+    float pulseRate;
+    float spo2;
+};
+
+int vitalsOk(const Vitals& vitals);
