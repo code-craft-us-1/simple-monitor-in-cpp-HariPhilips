@@ -36,20 +36,20 @@ bool isSpo2Critical(const Vitals& vitals) {
 }
 
 int vitalsOk(const Vitals& vitals) {
-    bool temperatureCritical = isTemperatureCritical(vitals);
-    bool pulseRateCritical = isPulseRateCritical(vitals);
-    bool spo2Critical = isSpo2Critical(vitals);
+    VitalCheck checks[] = {
+        {isTemperatureCritical, "Temperature is critical!"},
+        {isPulseRateCritical, "Pulse Rate is out of range!"},
+        {isSpo2Critical, "Oxygen Saturation is out of range!"}
+    };
 
-    if (temperatureCritical) {
-        displayAlert("Temperature is critical!");
-    }
-    if (pulseRateCritical) {
-        displayAlert("Pulse Rate is out of range!");
-    }
-    if (spo2Critical) {
-        displayAlert("Oxygen Saturation is out of range!");
+    bool allVitalsOk = true;
+
+    for (const auto& check : checks) {
+        if (check.isCritical(vitals)) {
+            displayAlert(check.message);
+            allVitalsOk = false;
+        }
     }
 
-    return !(temperatureCritical || pulseRateCritical || spo2Critical);
+    return allVitalsOk;
 }
-

@@ -6,4 +6,9 @@ struct Vitals {
     float spo2;
 };
 
+struct VitalCheck {
+    bool (*isCritical)(const Vitals&);
+    const char* message;
+};
+
 int vitalsOk(const Vitals& vitals);
