@@ -36,23 +36,18 @@ bool isSpo2Critical(const Vitals& vitals) {
 }
 
 int vitalsOk(const Vitals& vitals) {
+    int result = 1;
+
     if (isTemperatureCritical(vitals)) {
         displayAlert("Temperature is critical!");
-        return 0;
-    }
-
-    if (isPulseRateCritical(vitals)) {
+        result = 0;
+    } else if (isPulseRateCritical(vitals)) {
         displayAlert("Pulse Rate is out of range!");
-        return 0;
-    }
-
-    if (isSpo2Critical(vitals)) {
+        result = 0;
+    } else if (isSpo2Critical(vitals)) {
         displayAlert("Oxygen Saturation is out of range!");
-        return 0;
+        result = 0;
     }
 
-    return 1;  // All vitals are fine
+    return result;
 }
-
-
-
