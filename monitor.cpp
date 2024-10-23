@@ -1,17 +1,10 @@
-#include "./monitor.h"
-#include <assert.h>
+#include "monitor.h"
+#include <iostream>
+#include <vector>
 #include <thread>
 #include <chrono>
-#include <iostream>
-#include <string>
+
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
-
-constexpr float MAX_TEMP = 102.0;
-constexpr float MIN_TEMP = 95.0;
-constexpr int MAX_PULSE = 100;
-constexpr int MIN_PULSE = 60;
-constexpr float MIN_SPO2 = 90.0;
-
 
 void displayAlert(const std::string& message) {
     cout << message << "\n";
@@ -23,30 +16,16 @@ void displayAlert(const std::string& message) {
     cout << "\n";
 }
 
-bool isTemperatureCritical(const Vitals& vitals) {
-    return vitals.temperature > MAX_TEMP || vitals.temperature < MIN_TEMP;
-}
-
-bool isPulseRateCritical(const Vitals& vitals) {
-    return vitals.pulseRate < MIN_PULSE || vitals.pulseRate > MAX_PULSE;
-}
-
-bool isSpo2Critical(const Vitals& vitals) {
-    return vitals.spo2 < MIN_SPO2;
-}
-
-int vitalsOk(const Vitals& vitals) {
-    VitalCheck checks[] = {
-        {isTemperatureCritical, "Temperature is critical!"},
-        {isPulseRateCritical, "Pulse Rate is out of range!"},
-        {isSpo2Critical, "Oxygen Saturation is out of range!"}
-    };
-
+bool isVitalsOk(const Vitals& vitals, const std::vector<VitalCheck*>& checks) {
     bool allVitalsOk = true;
 
     for (const auto& check : checks) {
-        if (check.isCritical(vitals)) {
-            displayAlert(check.message);
+        if (check->isWarning(vitals)) {
+            displayAlert(check->warningMessage());
+        }
+
+        if (check->isCritical(vitals)) {
+            displayAlert(check->criticalMessage());
             allVitalsOk = false;
         }
     }

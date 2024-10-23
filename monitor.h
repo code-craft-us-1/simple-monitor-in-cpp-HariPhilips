@@ -1,14 +1,27 @@
 #pragma once
+#include <vector>
+#include <string>
+
+enum class Unit {
+    Fahrenheit,
+    Celsius
+};
 
 struct Vitals {
     float temperature;
     float pulseRate;
     float spo2;
+    Unit temperatureUnit; // Added to differentiate the temperature units
 };
 
-struct VitalCheck {
-    bool (*isCritical)(const Vitals&);
-    const char* message;
+class VitalCheck {
+public:
+    virtual bool isCritical(const Vitals& vitals) const = 0; 
+    virtual bool isWarning(const Vitals& vitals) const = 0;
+    virtual const char* criticalMessage() const = 0;
+    virtual const char* warningMessage() const = 0;
+    virtual ~VitalCheck() = default;
 };
 
-int vitalsOk(const Vitals& vitals);
+bool isVitalsOk(const Vitals&, const std::vector<VitalCheck*>& checks);
+void displayAlert(const std::string& message);
