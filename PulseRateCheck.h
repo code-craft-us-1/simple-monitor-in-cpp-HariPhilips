@@ -5,7 +5,8 @@ constexpr int MIN_PULSE = 60;
 constexpr float PULSE_TOLERANCE = MAX_PULSE * 0.015;
 
 class PulseRateCheck : public VitalCheck {
-public:
+public: 
+
     bool isCritical(const Vitals& vitals) const override {
         return vitals.pulseRate > MAX_PULSE || vitals.pulseRate < MIN_PULSE;
     }

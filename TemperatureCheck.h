@@ -2,7 +2,7 @@
 
 constexpr float MAX_TEMP_FAHRENHEIT = 102.0;
 constexpr float MIN_TEMP_FAHRENHEIT = 95.0;
-constexpr float TEMP_TOLERANCE_FAHRENHEIT = MAX_TEMP_FAHRENHEIT * 0.015; // 1.5% tolerance
+constexpr float TEMP_TOLERANCE_FAHRENHEIT = MAX_TEMP_FAHRENHEIT * 0.015;  // 1.5% tolerance
 
 float convertToFahrenheit(float temperature, Unit unit) {
     if (unit == Unit::Celsius) {
@@ -12,7 +12,8 @@ float convertToFahrenheit(float temperature, Unit unit) {
 }
 
 class TemperatureCheck : public VitalCheck {
-public:
+public: 
+
     bool isCritical(const Vitals& vitals) const override {
         float tempInFahrenheit = convertToFahrenheit(vitals.temperature, vitals.temperatureUnit);
         return tempInFahrenheit > MAX_TEMP_FAHRENHEIT || tempInFahrenheit < MIN_TEMP_FAHRENHEIT;

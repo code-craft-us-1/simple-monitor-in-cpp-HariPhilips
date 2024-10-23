@@ -4,7 +4,8 @@ constexpr float MIN_SPO2 = 90.0;
 constexpr float SPO2_TOLERANCE = 1.5;  // 1.5% tolerance for SpO2
 
 class Spo2Check : public VitalCheck {
-public:
+public: 
+
     bool isCritical(const Vitals& vitals) const override {
         return vitals.spo2 < MIN_SPO2;
     }

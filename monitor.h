@@ -15,8 +15,8 @@ struct Vitals {
 };
 
 class VitalCheck {
-public:
-    virtual bool isCritical(const Vitals& vitals) const = 0; 
+public: 
+    virtual bool isCritical(const Vitals& vitals) const = 0;
     virtual bool isWarning(const Vitals& vitals) const = 0;
     virtual const char* criticalMessage() const = 0;
     virtual const char* warningMessage() const = 0;
