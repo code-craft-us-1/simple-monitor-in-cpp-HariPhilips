@@ -1,9 +1,9 @@
+#include <vector>
+#include "gtest/gtest.h"
 #include "./monitor.h"
 #include "./TemperatureCheck.h"
 #include "./PulseRateCheck.h"
 #include "./Spo2Check.h"
-#include <vector>
-#include "gtest/gtest.h"
 
 // Test fixture class
 class MonitorTest : public ::testing::Test {

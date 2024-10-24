@@ -25,14 +25,12 @@ class TemperatureCheck : public VitalCheck {
         bool isAboveTolerance = isWithinTolerance(
             tempInFahrenheit,
             MAX_TEMP_FAHRENHEIT - TEMP_TOLERANCE_FAHRENHEIT,
-            MAX_TEMP_FAHRENHEIT
-        );
+            MAX_TEMP_FAHRENHEIT);
 
         bool isBelowTolerance = isWithinTolerance(
             tempInFahrenheit,
             MIN_TEMP_FAHRENHEIT,
-            MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT
-        );
+            MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT);
 
         return isAboveTolerance || isBelowTolerance;
     }
