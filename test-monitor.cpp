@@ -3,11 +3,11 @@
 #include "./TemperatureCheck.h"
 #include "./PulseRateCheck.h"
 #include "./Spo2Check.h"
+#include <vector>
 
 // Test fixture class
 class MonitorTest : public ::testing::Test {
-protected: 
-
+ protected:
     std::vector<VitalCheck*> checks;
 
     void SetUp() override {

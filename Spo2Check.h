@@ -1,17 +1,19 @@
+#ifndef SPO2CHECK_H_
+#define SPO2CHECK_H_
+
 #include "./monitor.h"
 
 constexpr float MIN_SPO2 = 90.0;
 constexpr float SPO2_TOLERANCE = 1.5;  // 1.5% tolerance for SpO2
 
 class Spo2Check : public VitalCheck {
-public: 
-
+ public:
     bool isCritical(const Vitals& vitals) const override {
         return vitals.spo2 < MIN_SPO2;
     }
 
     bool isWarning(const Vitals& vitals) const override {
-        return vitals.spo2 > MIN_SPO2 && vitals.spo2 <= MIN_SPO2 + SPO2_TOLERANCE;
+        return isWithinTolerance(vitals.spo2, MIN_SPO2, MIN_SPO2 + SPO2_TOLERANCE);
     }
 
     const char* criticalMessage() const override {
@@ -22,3 +24,5 @@ public:
         return "Warning: Approaching low oxygen saturation!";
     }
 };
+
+#endif  // SPO2CHECK_H_

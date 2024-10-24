@@ -1,3 +1,4 @@
+#pragma once
 #include "./monitor.h"
 
 constexpr float MAX_TEMP_FAHRENHEIT = 102.0;
@@ -12,8 +13,7 @@ float convertToFahrenheit(float temperature, Unit unit) {
 }
 
 class TemperatureCheck : public VitalCheck {
-public: 
-
+ public:
     bool isCritical(const Vitals& vitals) const override {
         float tempInFahrenheit = convertToFahrenheit(vitals.temperature, vitals.temperatureUnit);
         return tempInFahrenheit > MAX_TEMP_FAHRENHEIT || tempInFahrenheit < MIN_TEMP_FAHRENHEIT;
@@ -21,8 +21,9 @@ public:
 
     bool isWarning(const Vitals& vitals) const override {
         float tempInFahrenheit = convertToFahrenheit(vitals.temperature, vitals.temperatureUnit);
-        return (tempInFahrenheit >= MAX_TEMP_FAHRENHEIT - TEMP_TOLERANCE_FAHRENHEIT && tempInFahrenheit < MAX_TEMP_FAHRENHEIT) ||
-               (tempInFahrenheit > MIN_TEMP_FAHRENHEIT && tempInFahrenheit <= MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT);
+
+        return isWithinTolerance(tempInFahrenheit, MAX_TEMP_FAHRENHEIT - TEMP_TOLERANCE_FAHRENHEIT, MAX_TEMP_FAHRENHEIT) ||
+               isWithinTolerance(tempInFahrenheit, MIN_TEMP_FAHRENHEIT, MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT);
     }
 
     const char* criticalMessage() const override {

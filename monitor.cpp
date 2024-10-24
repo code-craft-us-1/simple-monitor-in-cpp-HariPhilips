@@ -2,6 +2,8 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <vector>
+#include <string>
 
 using std::cout, std::flush, std::this_thread::sleep_for, std::chrono::seconds;
 
