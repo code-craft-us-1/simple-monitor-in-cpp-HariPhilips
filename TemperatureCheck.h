@@ -22,8 +22,19 @@ class TemperatureCheck : public VitalCheck {
     bool isWarning(const Vitals& vitals) const override {
         float tempInFahrenheit = convertToFahrenheit(vitals.temperature, vitals.temperatureUnit);
 
-        return isWithinTolerance(tempInFahrenheit, MAX_TEMP_FAHRENHEIT - TEMP_TOLERANCE_FAHRENHEIT, MAX_TEMP_FAHRENHEIT) ||
-               isWithinTolerance(tempInFahrenheit, MIN_TEMP_FAHRENHEIT, MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT);
+        bool isAboveTolerance = isWithinTolerance(
+            tempInFahrenheit,
+            MAX_TEMP_FAHRENHEIT - TEMP_TOLERANCE_FAHRENHEIT,
+            MAX_TEMP_FAHRENHEIT
+        );
+
+        bool isBelowTolerance = isWithinTolerance(
+            tempInFahrenheit,
+            MIN_TEMP_FAHRENHEIT,
+            MIN_TEMP_FAHRENHEIT + TEMP_TOLERANCE_FAHRENHEIT
+        );
+
+        return isAboveTolerance || isBelowTolerance;
     }
 
     const char* criticalMessage() const override {

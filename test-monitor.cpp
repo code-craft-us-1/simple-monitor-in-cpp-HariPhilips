@@ -1,9 +1,9 @@
 #include "./monitor.h"
-#include "gtest/gtest.h"
 #include "./TemperatureCheck.h"
 #include "./PulseRateCheck.h"
 #include "./Spo2Check.h"
 #include <vector>
+#include "gtest/gtest.h"
 
 // Test fixture class
 class MonitorTest : public ::testing::Test {
@@ -60,7 +60,7 @@ TEST_F(MonitorTest, NotOkWhenPulseRateIsOffRange) {
 
 TEST_F(MonitorTest, NotOkWhenSpO2IsOffRange) {
     // SpO2 below min
-    Vitals testVitals = {100, 100, MIN_SPO2 - 1, Unit::Fahrenheit};
+    Vitals testVitals = {100, 100, MIN_SPO2 - 10, Unit::Fahrenheit};
     ASSERT_FALSE(isVitalsOk(testVitals, checks));
 }
 

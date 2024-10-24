@@ -28,5 +28,7 @@ bool isWithinTolerance(T value, T lowerBound, T upperBound) {
     return value >= lowerBound && value < upperBound;
 }
 
+bool handleWarning(const Vitals&, const VitalCheck* check);
+bool handleCritical(const Vitals&, const VitalCheck* check);
 bool isVitalsOk(const Vitals&, const std::vector<VitalCheck*>& checks);
 void displayAlert(const std::string& message);

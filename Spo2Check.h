@@ -1,6 +1,4 @@
-#ifndef SPO2CHECK_H_
-#define SPO2CHECK_H_
-
+#pragma once
 #include "./monitor.h"
 
 constexpr float MIN_SPO2 = 90.0;
@@ -24,5 +22,3 @@ class Spo2Check : public VitalCheck {
         return "Warning: Approaching low oxygen saturation!";
     }
 };
-
-#endif  // SPO2CHECK_H_

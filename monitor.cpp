@@ -17,19 +17,32 @@ void displayAlert(const std::string& message) {
     cout << "\n";
 }
 
+bool handleWarning(const Vitals& vitals, const VitalCheck* check) {
+    if (check->isWarning(vitals)) {
+        displayAlert(check->warningMessage());
+        return true;
+    }
+    return false;
+}
+
+bool handleCritical(const Vitals& vitals, const VitalCheck* check) {
+    if (check->isCritical(vitals)) {
+        displayAlert(check->criticalMessage());
+        return true;
+    }
+    return false;
+}
+
 bool isVitalsOk(const Vitals& vitals, const std::vector<VitalCheck*>& checks) {
     bool allVitalsOk = true;
 
     for (const auto& check : checks) {
-        if (check->isWarning(vitals)) {
-            displayAlert(check->warningMessage());
-        }
-
-        if (check->isCritical(vitals)) {
-            displayAlert(check->criticalMessage());
+        handleWarning(vitals, check);
+        if (handleCritical(vitals, check)) {
             allVitalsOk = false;
         }
     }
 
     return allVitalsOk;
 }
+
